@@ -64,7 +64,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 - **React 19**: UI library
 - **TypeScript**: Type-safe JavaScript
-- **CSS3**: Styling and animations
+- **Tailwind CSS**: Utility-first CSS framework
 - **Vite**: Build tooling
 
 ## Project Structure

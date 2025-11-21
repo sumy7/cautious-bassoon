@@ -1,10 +1,9 @@
 import React from 'react';
 import Game from './Game';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="min-h-screen bg-game-bg flex items-center justify-center font-sans">
       <Game />
     </div>
   );
