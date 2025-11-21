@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '475px',
+      },
       colors: {
         'game-bg': '#faf8ef',
         'board-bg': '#bbada0',

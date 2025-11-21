@@ -122,9 +122,9 @@ const Game: React.FC = () => {
   };
 
   const getTileFontSizeClass = (value: number) => {
-    if (value >= 1024) return 'text-[35px] sm:text-[25px]';
-    if (value >= 128) return 'text-[45px] sm:text-[30px]';
-    return 'text-[55px] sm:text-[35px]';
+    if (value >= 1024) return 'text-[35px] md:text-[30px] sm:text-[25px] xs:text-[20px]';
+    if (value >= 128) return 'text-[45px] md:text-[38px] sm:text-[30px] xs:text-[24px]';
+    return 'text-[55px] md:text-[45px] sm:text-[35px] xs:text-[28px]';
   };
 
   const emojiLegend = [
@@ -142,57 +142,65 @@ const Game: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-[500px] mx-auto my-10 p-5 sm:p-2.5 sm:my-5">
-      <div className="flex justify-between items-center mb-5">
-        <h1 className="text-[60px] font-bold text-text-dark m-0 sm:text-[40px] drop-shadow-lg animate-float">合成大草莓</h1>
-        <div className="flex gap-2.5">
-          <div className="bg-gradient-to-br from-board-bg to-[#9d8b7e] px-[25px] py-2.5 rounded-lg text-center min-w-[80px] sm:px-[15px] sm:py-[5px] sm:min-w-[60px] shadow-score transform transition-transform hover:scale-105">
-            <div className="text-score-label text-[13px] font-bold uppercase sm:text-[11px]">分数</div>
-            <div className="text-white text-[25px] font-bold sm:text-[18px] drop-shadow">{gameState.score}</div>
+    <div className="max-w-[500px] w-full mx-auto my-10 p-5 md:p-4 sm:p-3 sm:my-5 xs:my-2 xs:p-2">
+      <div className="flex justify-between items-center mb-5 flex-wrap gap-3">
+        <h1 className="text-[60px] font-bold text-text-dark m-0 md:text-[50px] sm:text-[40px] xs:text-[32px] drop-shadow-lg animate-float">
+          🍓 合成大草莓 🍓
+        </h1>
+        <div className="flex gap-2.5 xs:gap-1.5">
+          <div className="bg-gradient-to-br from-board-bg to-[#9d8b7e] px-[25px] py-2.5 rounded-lg text-center min-w-[80px] md:px-[20px] md:py-2 md:min-w-[70px] sm:px-[15px] sm:py-[5px] sm:min-w-[60px] xs:px-[10px] xs:py-1 xs:min-w-[50px] shadow-score transform transition-transform hover:scale-105">
+            <div className="text-score-label text-[13px] font-bold uppercase sm:text-[11px] xs:text-[9px]">📊 分数</div>
+            <div className="text-white text-[25px] font-bold md:text-[22px] sm:text-[18px] xs:text-[16px] drop-shadow">{gameState.score}</div>
           </div>
-          <div className="bg-gradient-to-br from-board-bg to-[#9d8b7e] px-[25px] py-2.5 rounded-lg text-center min-w-[80px] sm:px-[15px] sm:py-[5px] sm:min-w-[60px] shadow-score transform transition-transform hover:scale-105">
-            <div className="text-score-label text-[13px] font-bold uppercase sm:text-[11px]">最高分</div>
-            <div className="text-white text-[25px] font-bold sm:text-[18px] drop-shadow">{bestScore}</div>
+          <div className="bg-gradient-to-br from-board-bg to-[#9d8b7e] px-[25px] py-2.5 rounded-lg text-center min-w-[80px] md:px-[20px] md:py-2 md:min-w-[70px] sm:px-[15px] sm:py-[5px] sm:min-w-[60px] xs:px-[10px] xs:py-1 xs:min-w-[50px] shadow-score transform transition-transform hover:scale-105">
+            <div className="text-score-label text-[13px] font-bold uppercase sm:text-[11px] xs:text-[9px]">🏆 最高分</div>
+            <div className="text-white text-[25px] font-bold md:text-[22px] sm:text-[18px] xs:text-[16px] drop-shadow">{bestScore}</div>
           </div>
         </div>
       </div>
 
       <div className="flex justify-between items-center mb-5 sm:flex-col sm:gap-2.5 sm:items-start">
-        <p className="text-text-dark text-base m-0 drop-shadow">合并 Emoji，合成<strong>大草莓！</strong></p>
+        <p className="text-text-dark text-base md:text-sm sm:text-sm xs:text-xs m-0 drop-shadow">
+          ✨ 合并 Emoji，合成<strong>大草莓！🍓</strong>
+        </p>
         <button 
-          className="bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-lg px-5 py-2.5 text-lg font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button hover:shadow-button-hover transform hover:scale-105 hover:-translate-y-0.5" 
+          className="bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-lg px-5 py-2.5 text-lg md:text-base md:px-4 md:py-2 sm:text-base sm:px-4 sm:py-2 xs:text-sm xs:px-3 xs:py-1.5 font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button hover:shadow-button-hover transform hover:scale-105 hover:-translate-y-0.5 whitespace-nowrap" 
           onClick={resetGame}
         >
-          新游戏
+          🎮 新游戏
         </button>
       </div>
 
       <div className="relative">
         {gameState.won && !gameState.gameOver && (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#edc22e]/95 to-[#d4a825]/95 flex flex-col items-center justify-center rounded-xl z-50 animate-appear shadow-glow backdrop-blur-sm">
-            <p className="text-[60px] font-bold text-text-light mb-5 sm:text-[40px] drop-shadow-lg">你赢了！🎉</p>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#edc22e]/95 to-[#d4a825]/95 flex flex-col items-center justify-center rounded-xl z-50 animate-appear shadow-glow backdrop-blur-sm p-4">
+            <p className="text-[60px] font-bold text-text-light mb-5 md:text-[50px] sm:text-[40px] xs:text-[32px] drop-shadow-lg">
+              🎉 你赢了！🏆
+            </p>
             <button 
-              className="bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-lg px-[30px] py-[15px] text-[20px] font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button-hover transform hover:scale-105"
+              className="bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-lg px-[30px] py-[15px] text-[20px] md:px-6 md:py-3 md:text-lg sm:px-5 sm:py-2.5 sm:text-base xs:px-4 xs:py-2 xs:text-sm font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button-hover transform hover:scale-105"
               onClick={resetGame}
             >
-              再试一次
+              🔄 再试一次
             </button>
           </div>
         )}
 
         {gameState.gameOver && (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#eee4da]/95 to-[#d8cfc7]/95 flex flex-col items-center justify-center rounded-xl z-50 animate-appear shadow-2xl backdrop-blur-sm">
-            <p className="text-[60px] font-bold text-text-dark mb-5 sm:text-[40px] drop-shadow-lg">游戏结束！</p>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#eee4da]/95 to-[#d8cfc7]/95 flex flex-col items-center justify-center rounded-xl z-50 animate-appear shadow-2xl backdrop-blur-sm p-4">
+            <p className="text-[60px] font-bold text-text-dark mb-5 md:text-[50px] sm:text-[40px] xs:text-[32px] drop-shadow-lg">
+              😢 游戏结束！💔
+            </p>
             <button 
-              className="bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-lg px-[30px] py-[15px] text-[20px] font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button-hover transform hover:scale-105"
+              className="bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-lg px-[30px] py-[15px] text-[20px] md:px-6 md:py-3 md:text-lg sm:px-5 sm:py-2.5 sm:text-base xs:px-4 xs:py-2 xs:text-sm font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button-hover transform hover:scale-105"
               onClick={resetGame}
             >
-              再试一次
+              🔄 再试一次
             </button>
           </div>
         )}
 
-        <div className="grid grid-cols-4 grid-rows-4 gap-[15px] bg-gradient-to-br from-board-bg to-[#9d8b7e] p-[15px] rounded-xl w-full aspect-square sm:gap-[10px] sm:p-[10px] shadow-board">
+        <div className="grid grid-cols-4 grid-rows-4 gap-[15px] bg-gradient-to-br from-board-bg to-[#9d8b7e] p-[15px] rounded-xl w-full aspect-square md:gap-[12px] md:p-[12px] sm:gap-[10px] sm:p-[10px] xs:gap-[8px] xs:p-[8px] shadow-board">
           {gameState.board.map((row, i) =>
             row.map((cell, j) => (
               <div
@@ -213,20 +221,22 @@ const Game: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-5 text-text-dark text-sm text-center drop-shadow">
+      <div className="mt-5 text-text-dark text-sm md:text-sm sm:text-xs xs:text-xs text-center drop-shadow">
         <p className="m-0 leading-relaxed">
-          <strong>玩法说明：</strong> 使用 <strong>方向键</strong> 移动方块。
-          当两个相同的 Emoji 相遇时，它们会 <strong>合并成一个新的！</strong>
+          <strong>🎯 玩法说明：</strong> 使用 <strong>⌨️ 方向键</strong> 移动方块。
+          当两个相同的 Emoji 相遇时，它们会 <strong>✨ 合并成一个新的！</strong>
         </p>
       </div>
 
-      <div className="mt-8 border-t border-text-dark/20 pt-5">
-        <h3 className="text-text-dark text-lg font-bold mb-4 text-center drop-shadow">进化图鉴</h3>
-        <div className="grid grid-cols-4 gap-3 sm:grid-cols-3">
+      <div className="mt-8 md:mt-6 sm:mt-5 xs:mt-4 border-t border-text-dark/20 pt-5 sm:pt-4 xs:pt-3">
+        <h3 className="text-text-dark text-lg md:text-base sm:text-base xs:text-sm font-bold mb-4 sm:mb-3 xs:mb-2 text-center drop-shadow">
+          📖 进化图鉴
+        </h3>
+        <div className="grid grid-cols-4 gap-3 md:gap-2.5 sm:grid-cols-3 sm:gap-2 xs:grid-cols-2 xs:gap-1.5">
           {emojiLegend.map((item) => (
-            <div key={item.value} className="flex flex-col items-center p-2 bg-gradient-to-br from-board-bg/20 to-board-bg/10 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 transform">
-              <span className="text-2xl mb-1 drop-shadow">{item.emoji}</span>
-              <span className="text-text-dark font-bold text-xs">{item.value}</span>
+            <div key={item.value} className="flex flex-col items-center p-2 md:p-1.5 sm:p-1.5 xs:p-1 bg-gradient-to-br from-board-bg/20 to-board-bg/10 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 transform">
+              <span className="text-2xl md:text-xl sm:text-lg xs:text-base mb-1 drop-shadow">{item.emoji}</span>
+              <span className="text-text-dark font-bold text-xs md:text-[11px] sm:text-[10px] xs:text-[9px]">{item.value}</span>
             </div>
           ))}
         </div>
