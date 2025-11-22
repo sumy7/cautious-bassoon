@@ -141,9 +141,26 @@ const Game: React.FC = () => {
     { value: 2048, emoji: '🍓' },
   ];
 
+  // Extract legend component to avoid duplication
+  const EvoLegend = () => (
+    <div className="border-t border-text-dark/20 pt-5 sm:pt-4 xs:pt-3">
+      <h3 className="text-text-dark text-lg md:text-base sm:text-base xs:text-sm font-bold mb-4 sm:mb-3 xs:mb-2 text-center drop-shadow">
+        📖 进化图鉴
+      </h3>
+      <div className="grid grid-cols-4 gap-3 md:gap-2.5 sm:grid-cols-3 sm:gap-2 xs:grid-cols-2 xs:gap-1.5">
+        {emojiLegend.map((item) => (
+          <div key={item.value} className="flex flex-col items-center p-2 md:p-1.5 sm:p-1.5 xs:p-1 bg-gradient-to-br from-board-bg/20 to-board-bg/10 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 transform">
+            <span className="text-2xl md:text-xl sm:text-lg xs:text-base mb-1 drop-shadow">{item.emoji}</span>
+            <span className="text-text-dark font-bold text-xs md:text-[11px] sm:text-[10px] xs:text-[9px]">{item.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="w-full mx-auto my-10 p-5 md:p-4 sm:p-3 sm:my-5 xs:my-2 xs:p-2 max-w-[1200px]">
-      {/* Title - Always at top, centered on small screens */}
+      {/* Title - Always at top, centered */}
       <div className="mb-8 sm:mb-5">
         <h1 className="text-[28px] sm:text-[32px] md:text-[40px] lg:text-[50px] xl:text-[60px] font-bold text-text-dark m-0 drop-shadow-lg animate-float text-center">
           🍓 合成大草莓 🍓
@@ -151,8 +168,8 @@ const Game: React.FC = () => {
       </div>
 
       {/* Main content: side-by-side on large screens, stacked on small */}
-      <div className="flex flex-col-reverse lg:flex-row-reverse lg:gap-8 gap-5">
-        {/* Left side: Game board (Visual Right) */}
+      <div className="flex flex-col lg:flex-row lg:gap-8 gap-5">
+        {/* Left side: Game board */}
         <div className="flex-shrink-0 lg:w-2/3 w-full mx-auto lg:mx-0">
           <div className="relative max-w-[600px] mx-auto">
             {gameState.won && !gameState.gameOver && (
@@ -204,59 +221,47 @@ const Game: React.FC = () => {
             </div>
           </div>
 
-          {/* Evolution legend - show below board on large screens, keep at bottom on small */}
-          <div className="mt-8 md:mt-6 sm:mt-5 xs:mt-4 lg:block hidden">
-            <div className="border-t border-text-dark/20 pt-5 sm:pt-4 xs:pt-3">
-              <h3 className="text-text-dark text-lg md:text-base sm:text-base xs:text-sm font-bold mb-4 sm:mb-3 xs:mb-2 text-center drop-shadow">
-                📖 进化图鉴
-              </h3>
-              <div className="grid grid-cols-4 gap-3 md:gap-2.5 sm:grid-cols-3 sm:gap-2 xs:grid-cols-2 xs:gap-1.5">
-                {emojiLegend.map((item) => (
-                  <div key={item.value} className="flex flex-col items-center p-2 md:p-1.5 sm:p-1.5 xs:p-1 bg-gradient-to-br from-board-bg/20 to-board-bg/10 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 transform">
-                    <span className="text-2xl md:text-xl sm:text-lg xs:text-base mb-1 drop-shadow">{item.emoji}</span>
-                    <span className="text-text-dark font-bold text-xs md:text-[11px] sm:text-[10px] xs:text-[9px]">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Evolution legend - show below board on large screens only */}
+          <div className="mt-8 md:mt-6 sm:mt-5 xs:mt-4 hidden lg:block">
+            <EvoLegend />
           </div>
         </div>
 
-        {/* Right side: Scores and Instructions (Visual Left) */}
-        <div className="flex-1 lg:w-1/3 space-y-6">
+        {/* Right side: Scores and Instructions */}
+        <div className="flex-1 lg:w-1/3 space-y-4 md:space-y-6">
           {/* Scores */}
-          <div className="flex gap-4">
-            <div className="flex-1 bg-gradient-to-br from-board-bg to-[#9d8b7e] p-4 rounded-xl shadow-score text-center">
-              <div className="text-score-label text-sm font-bold uppercase mb-1">📊 分数</div>
-              <div className="text-white text-3xl font-bold drop-shadow">{gameState.score}</div>
+          <div className="flex gap-3 md:gap-4">
+            <div className="flex-1 bg-gradient-to-br from-board-bg to-[#9d8b7e] p-3 md:p-4 rounded-xl shadow-score text-center transform transition-transform hover:scale-105">
+              <div className="text-score-label text-xs md:text-sm font-bold uppercase mb-1">📊 分数</div>
+              <div className="text-white text-2xl md:text-3xl font-bold drop-shadow">{gameState.score}</div>
             </div>
-            <div className="flex-1 bg-gradient-to-br from-board-bg to-[#9d8b7e] p-4 rounded-xl shadow-score text-center">
-              <div className="text-score-label text-sm font-bold uppercase mb-1">🏆 最高分</div>
-              <div className="text-white text-3xl font-bold drop-shadow">{bestScore}</div>
+            <div className="flex-1 bg-gradient-to-br from-board-bg to-[#9d8b7e] p-3 md:p-4 rounded-xl shadow-score text-center transform transition-transform hover:scale-105">
+              <div className="text-score-label text-xs md:text-sm font-bold uppercase mb-1">🏆 最高分</div>
+              <div className="text-white text-2xl md:text-3xl font-bold drop-shadow">{bestScore}</div>
             </div>
           </div>
 
           {/* New Game Button */}
           <button 
-            className="w-full bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-xl px-6 py-4 text-xl md:text-lg sm:text-base xs:text-sm font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button hover:shadow-button-hover transform hover:scale-105 hover:-translate-y-0.5" 
+            className="w-full bg-gradient-to-br from-button-bg to-[#7a6655] text-text-light border-none rounded-xl px-4 py-3 md:px-6 md:py-4 text-base md:text-xl font-bold cursor-pointer transition-all duration-200 hover:from-button-hover hover:to-[#8b7766] shadow-button hover:shadow-button-hover transform hover:scale-105 hover:-translate-y-0.5" 
             onClick={resetGame}
           >
             🎮 新游戏
           </button>
 
           {/* Game Description */}
-          <div className="bg-gradient-to-br from-board-bg/10 to-board-bg/5 p-6 md:p-5 sm:p-4 xs:p-3 rounded-xl shadow-md">
-            <p className="text-text-dark text-lg md:text-base sm:text-sm xs:text-xs m-0 drop-shadow leading-relaxed">
+          <div className="bg-gradient-to-br from-board-bg/10 to-board-bg/5 p-4 md:p-6 rounded-xl shadow-md">
+            <p className="text-text-dark text-sm md:text-lg m-0 drop-shadow leading-relaxed">
               ✨ 合并 Emoji，合成<strong>大草莓！🍓</strong>
             </p>
           </div>
 
           {/* Instructions */}
-          <div className="bg-gradient-to-br from-board-bg/10 to-board-bg/5 p-6 md:p-5 sm:p-4 xs:p-3 rounded-xl shadow-md">
-            <h3 className="text-text-dark text-xl md:text-lg sm:text-base xs:text-sm font-bold mb-3 drop-shadow">
+          <div className="bg-gradient-to-br from-board-bg/10 to-board-bg/5 p-4 md:p-6 rounded-xl shadow-md">
+            <h3 className="text-text-dark text-base md:text-xl font-bold mb-2 md:mb-3 drop-shadow">
               🎯 玩法说明
             </h3>
-            <p className="text-text-dark text-base md:text-sm sm:text-sm xs:text-xs m-0 drop-shadow leading-relaxed">
+            <p className="text-text-dark text-sm md:text-base m-0 drop-shadow leading-relaxed">
               使用 <strong>⌨️ 方向键</strong> 移动方块。
               当两个相同的 Emoji 相遇时，它们会 <strong>✨ 合并成一个新的！</strong>
             </p>
@@ -266,19 +271,7 @@ const Game: React.FC = () => {
 
       {/* Evolution legend for small screens - show at bottom */}
       <div className="mt-8 md:mt-6 sm:mt-5 xs:mt-4 lg:hidden">
-        <div className="border-t border-text-dark/20 pt-5 sm:pt-4 xs:pt-3">
-          <h3 className="text-text-dark text-lg md:text-base sm:text-base xs:text-sm font-bold mb-4 sm:mb-3 xs:mb-2 text-center drop-shadow">
-            📖 进化图鉴
-          </h3>
-          <div className="grid grid-cols-4 gap-3 md:gap-2.5 sm:grid-cols-3 sm:gap-2 xs:grid-cols-2 xs:gap-1.5">
-            {emojiLegend.map((item) => (
-              <div key={item.value} className="flex flex-col items-center p-2 md:p-1.5 sm:p-1.5 xs:p-1 bg-gradient-to-br from-board-bg/20 to-board-bg/10 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 transform">
-                <span className="text-2xl md:text-xl sm:text-lg xs:text-base mb-1 drop-shadow">{item.emoji}</span>
-                <span className="text-text-dark font-bold text-xs md:text-[11px] sm:text-[10px] xs:text-[9px]">{item.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <EvoLegend />
       </div>
     </div>
   );
